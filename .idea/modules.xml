@@ -3,8 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/BluetoothScanner.iml" filepath="$PROJECT_DIR$/BluetoothScanner.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/BluetoothScanner-master.iml" filepath="$PROJECT_DIR$/.idea/modules/BluetoothScanner-master.iml" group="BluetoothScanner-master" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/BluetoothScanner-master-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/BluetoothScanner-master-app.iml" group="BluetoothScanner-master/app" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/bt-scanner/bt-scanner.iml" filepath="$PROJECT_DIR$/bt-scanner/bt-scanner.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/bt-scanner/com.rustfisher.hardware-bt-scanner.iml" filepath="$PROJECT_DIR$/.idea/modules/bt-scanner/com.rustfisher.hardware-bt-scanner.iml" group="BluetoothScanner-master/bt-scanner" />
     </modules>
   </component>
 </project>

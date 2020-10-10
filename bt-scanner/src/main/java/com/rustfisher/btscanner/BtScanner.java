@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanFilter;
+import android.bluetooth.le.ScanRecord;
 import android.bluetooth.le.ScanResult;
 import android.bluetooth.le.ScanSettings;
 import android.os.Build;
@@ -23,7 +24,7 @@ import java.util.Set;
  */
 public final class BtScanner {
 
-    private static final String TAG = "rustApp";
+    private static final String TAG = "BTScannerApp";
 
     private long scanPeriod = 14000L;     // default scan period - start scan to stop scan
     private long notifyInterval = 2000L;  // default notify interval
@@ -159,7 +160,7 @@ public final class BtScanner {
                 if (TextUtils.isEmpty(name)) {
                     continue;
                 }
-                deviceList.add(new BtDeviceItem(device, 0));
+                deviceList.add(new BtDeviceItem(device, 0, 0));
             }
             notifyDeviceListChanged(deviceList);
         }
@@ -215,7 +216,7 @@ public final class BtScanner {
         if (loadBondDevice) {
             updatePairedDevice();
         }
-        handler.postDelayed(stopScanLeRunnable, scanPeriod);
+        //handler.postDelayed(stopScanLeRunnable, scanPeriod);
         scanning = true;
         if (sdkLLOrLater()) {
             if (!scanFilterList.isEmpty() && null != scanSettings) {
@@ -263,11 +264,12 @@ public final class BtScanner {
                         if (TextUtils.isEmpty(name)) {
                             return;
                         }
-                        BtDeviceItem item = new BtDeviceItem(result.getDevice(), result.getRssi());
+                        BtDeviceItem item = new BtDeviceItem(result.getDevice(), result.getScanRecord().getTxPowerLevel(), result.getRssi());
                         int index = deviceList.indexOf(item);
                         if (index <= -1) {
                             deviceList.add(item);
                         } else {
+                            deviceList.get(index).setTxPower(result.getScanRecord().getTxPowerLevel());
                             deviceList.get(index).setRssi(result.getRssi());
                         }
                     }
@@ -291,7 +293,7 @@ public final class BtScanner {
     /**
      * default scan callback
      */
-    private BluetoothAdapter.LeScanCallback defBleScanCallback = new BluetoothAdapter.LeScanCallback() {
+    private final BluetoothAdapter.LeScanCallback defBleScanCallback = new BluetoothAdapter.LeScanCallback() {
 
         @Override
         public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
@@ -299,7 +301,7 @@ public final class BtScanner {
             if (TextUtils.isEmpty(name)) {
                 return;
             }
-            BtDeviceItem item = new BtDeviceItem(device, rssi);
+            BtDeviceItem item = new BtDeviceItem(device, 0, rssi);
             int index = deviceList.indexOf(item);
             if (index <= -1) {
                 deviceList.add(item);
@@ -356,6 +358,7 @@ public final class BtScanner {
                     mmScanner.notifyDeviceListChanged(mmScanner.deviceList);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                    Thread.currentThread().interrupt();
                     break;
                 }
             }

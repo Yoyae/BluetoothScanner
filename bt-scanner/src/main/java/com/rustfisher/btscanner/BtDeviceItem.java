@@ -13,11 +13,13 @@ public final class BtDeviceItem implements Parcelable, Comparable {
     private String address;
     private String name;
     private int rssi;
+    private int txPower;
     private BluetoothDevice bluetoothDevice;
 
-    public BtDeviceItem(BluetoothDevice device, int rssi) {
+    public BtDeviceItem(BluetoothDevice device, int txPower, int rssi) {
         this.address = device.getAddress();
-        this.name = device.getName();
+        this.name = device.getName();//.getAliasName();
+        this.txPower = txPower;
         this.rssi = rssi;
         this.bluetoothDevice = device;
     }
@@ -37,6 +39,8 @@ public final class BtDeviceItem implements Parcelable, Comparable {
         return name;
     }
 
+    public void setName(String name) { this.name = name; }
+
     public int getRssi() {
         return rssi;
     }
@@ -44,6 +48,10 @@ public final class BtDeviceItem implements Parcelable, Comparable {
     public void setRssi(int rssi) {
         this.rssi = rssi;
     }
+
+    public int getTxPower() { return txPower;  }
+
+    public void setTxPower(int txPower) {this.txPower = txPower; }
 
     public BluetoothDevice getBluetoothDevice() {
         return bluetoothDevice;

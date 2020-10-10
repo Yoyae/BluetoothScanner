@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">BluetoothScanner</string>
+    <string name="app_name">Bluetooth Scanner</string>
+    <string name="rsi">RSSI</string>
+    <string name="name">Name</string>
+    <string name="address_mac">Mac Address</string>
+    <string name="tables">Tables</string>
+    <string name="scanner">Scanner</string>
+    <string name="distance">Distance</string>
 </resources>
